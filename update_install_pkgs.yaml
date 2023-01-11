@@ -1,0 +1,18 @@
+##Run of this playbook with '-K' option to prompt the 'quicklab' user's password on the lab node:
+# 'ansible all -m ping -K'
+
+- name: Update and Install packages via dnf
+  hosts: clients
+  become: yes
+  tasks:
+    - name: Update current packages
+      dnf:
+        name: '*'
+        state: latest
+        update_cache: yes
+        update_only: yes
+    - name: Install new packages
+      dnf:
+        name: ['vim', 'wget']
+        state: present
+        update_cache: yes
